@@ -1,0 +1,34 @@
+services:
+
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    ## Definition
+
+    SocialData\Connector\Twitter\Definition\ConnectorDefinition:
+        tags:
+            - {
+                name: social_data.connector_definition,
+                identifier: twitter,
+                socialPostBuilder: SocialData\Connector\Twitter\Builder\SocialPostBuilder
+            }
+
+    ## Social Post Builder
+
+    SocialData\Connector\Twitter\Builder\SocialPostBuilder: ~
+
+    ## API
+
+    SocialData\Connector\Twitter\Client\TwitterClient: ~
+
+    ## Form
+
+    SocialData\Connector\Twitter\Form\Admin\Type\TwitterEngineType:
+        tags:
+            - { name: form.type }
+
+    SocialData\Connector\Twitter\Form\Admin\Type\TwitterFeedType:
+        tags:
+            - { name: form.type }
