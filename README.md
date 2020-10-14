@@ -2,7 +2,7 @@
 
 This Connector allows you to fetch social posts from Twitter. 
 
-![image](https://user-images.githubusercontent.com/700119/94452916-5f51cb80-01b0-11eb-86b2-026d8b7ef6f7.png)
+![image](https://user-images.githubusercontent.com/7426193/96001355-367c3800-0e38-11eb-8eb4-ca40dcd4a984.png)
 
 #### Requirements
 * [Pimcore Social Data Bundle](https://github.com/dachcom-digital/pimcore-social-data)
@@ -51,7 +51,7 @@ social_data:
 ```
 
 ## Connector Configuration
-![image](https://user-images.githubusercontent.com/700119/94451768-164d4780-01af-11eb-9e52-3132ea02d714.png)
+![image](https://user-images.githubusercontent.com/7426193/96001424-4c89f880-0e38-11eb-90a8-586c5837e818.png)
 
 Now head back to the backend (`System` => `Social Data` => `Connector Configuration`) and checkout the twitter tab.
 - Click on `Install`
