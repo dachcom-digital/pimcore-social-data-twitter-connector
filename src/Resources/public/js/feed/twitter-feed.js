@@ -24,7 +24,7 @@ SocialData.Feed.Twitter = Class.create(SocialData.Feed.AbstractFeed, {
             {
                 xtype: 'textfield',
                 value: this.data !== null ? this.data['screenName'] : null,
-                fieldLabel: 'Screen name',
+                fieldLabel: t('social_data.wall.feed.twitter.screen_name'),
                 name: 'screenName',
                 labelAlign: 'left',
                 anchor: '100%',
@@ -33,7 +33,7 @@ SocialData.Feed.Twitter = Class.create(SocialData.Feed.AbstractFeed, {
             {
                 xtype: 'numberfield',
                 value: this.data !== null ? this.data['count'] : null,
-                fieldLabel: 'Count',
+                fieldLabel: t('social_data.wall.feed.twitter.count'),
                 name: 'count',
                 maxValue: 500,
                 minValue: 0,
@@ -44,7 +44,7 @@ SocialData.Feed.Twitter = Class.create(SocialData.Feed.AbstractFeed, {
             {
                 xtype: 'checkboxfield',
                 value: this.data !== null ? this.data['ignoreReplies'] : null,
-                fieldLabel: 'Ignore replies',
+                fieldLabel: t('social_data.wall.feed.twitter.ignore_replies'),
                 name: 'ignoreReplies',
                 labelAlign: 'left',
                 anchor: '100%',
@@ -53,7 +53,7 @@ SocialData.Feed.Twitter = Class.create(SocialData.Feed.AbstractFeed, {
             {
                 xtype: 'checkboxfield',
                 value: this.data !== null ? this.data['ignoreRetweets'] : null,
-                fieldLabel: 'Ignore retweets',
+                fieldLabel:t('social_data.wall.feed.twitter.ignore_retweets'),
                 name: 'ignoreRetweets',
                 labelAlign: 'left',
                 anchor: '100%',

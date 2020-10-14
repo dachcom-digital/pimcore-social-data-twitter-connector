@@ -1,0 +1,4 @@
+social_data.wall.feed.twitter.screen_name: 'Screen name'
+social_data.wall.feed.twitter.count: 'Count'
+social_data.wall.feed.twitter.ignore_replies: 'Ignore replies'
+social_data.wall.feed.twitter.ignore_retweets: 'Ignore retweets'
