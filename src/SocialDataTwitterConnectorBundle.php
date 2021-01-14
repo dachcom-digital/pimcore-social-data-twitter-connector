@@ -9,7 +9,7 @@ class SocialDataTwitterConnectorBundle extends AbstractPimcoreBundle
 {
     use PackageVersionTrait;
 
-    const PACKAGE_NAME = 'dachcom-digital/social-data-twitter-connector';
+    public const PACKAGE_NAME = 'dachcom-digital/social-data-twitter-connector';
 
     /**
      * {@inheritdoc}

@@ -3,11 +3,11 @@
 namespace SocialData\Connector\Twitter\Builder;
 
 use Carbon\Carbon;
-use SocialData\Connector\Twitter\Model\FeedConfiguration;
-use SocialDataBundle\Dto\BuildConfig;
-use SocialData\Connector\Twitter\Model\EngineConfiguration;
 use SocialData\Connector\Twitter\Client\TwitterClient;
+use SocialData\Connector\Twitter\Model\EngineConfiguration;
+use SocialData\Connector\Twitter\Model\FeedConfiguration;
 use SocialDataBundle\Connector\SocialPostBuilderInterface;
+use SocialDataBundle\Dto\BuildConfig;
 use SocialDataBundle\Dto\FetchData;
 use SocialDataBundle\Dto\FilterData;
 use SocialDataBundle\Dto\TransformData;
@@ -30,7 +30,7 @@ class SocialPostBuilder implements SocialPostBuilderInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configureFetch(BuildConfig $buildConfig, OptionsResolver $resolver): void
     {
@@ -38,7 +38,7 @@ class SocialPostBuilder implements SocialPostBuilderInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function fetch(FetchData $data): void
     {
@@ -57,14 +57,13 @@ class SocialPostBuilder implements SocialPostBuilderInterface
         }
 
         $client = $this->twitterClient->getClient($engineConfiguration);
+        $url = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
 
         if (empty($feedConfiguration->getScreenName())) {
             throw new BuildException('no valid screen name given.');
         }
 
         try {
-
-            $url = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
             $count = empty($feedConfiguration->getCount()) ? 50 : $feedConfiguration->getCount();
             $getFields = sprintf('screen_name=%s&count=%d', $feedConfiguration->getScreenName(), $count);
             $requestMethod = 'GET';
@@ -73,11 +72,9 @@ class SocialPostBuilder implements SocialPostBuilderInterface
                 ->setGetfield($getFields)
                 ->buildOauth($url, $requestMethod)
                 ->performRequest();
-
         } catch (\Throwable $e) {
             throw new BuildException(sprintf('twitter api error: %s [endpoint: %s]', $e->getMessage(), $url));
         }
-
 
         try {
             $items = json_decode($userTimeline, true);
@@ -93,7 +90,7 @@ class SocialPostBuilder implements SocialPostBuilderInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configureFilter(BuildConfig $buildConfig, OptionsResolver $resolver): void
     {
@@ -101,7 +98,7 @@ class SocialPostBuilder implements SocialPostBuilderInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function filter(FilterData $data): void
     {
@@ -138,7 +135,7 @@ class SocialPostBuilder implements SocialPostBuilderInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configureTransform(BuildConfig $buildConfig, OptionsResolver $resolver): void
     {
@@ -146,7 +143,7 @@ class SocialPostBuilder implements SocialPostBuilderInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function transform(TransformData $data): void
     {

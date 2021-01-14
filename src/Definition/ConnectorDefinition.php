@@ -4,8 +4,8 @@ namespace SocialData\Connector\Twitter\Definition;
 
 use SocialData\Connector\Twitter\Model\EngineConfiguration;
 use SocialData\Connector\Twitter\Model\FeedConfiguration;
-use SocialDataBundle\Connector\ConnectorEngineConfigurationInterface;
 use SocialDataBundle\Connector\ConnectorDefinitionInterface;
+use SocialDataBundle\Connector\ConnectorEngineConfigurationInterface;
 use SocialDataBundle\Connector\SocialPostBuilderInterface;
 use SocialDataBundle\Model\ConnectorEngineInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
