@@ -2,8 +2,8 @@
 
 namespace SocialData\Connector\Twitter\Model;
 
-use SocialDataBundle\Connector\ConnectorEngineConfigurationInterface;
 use SocialData\Connector\Twitter\Form\Admin\Type\TwitterEngineType;
+use SocialDataBundle\Connector\ConnectorEngineConfigurationInterface;
 
 class EngineConfiguration implements ConnectorEngineConfigurationInterface
 {
@@ -35,9 +35,8 @@ class EngineConfiguration implements ConnectorEngineConfigurationInterface
      */
     protected $accessTokenSecret;
 
-
     /**
-     * @param $apiKey
+     * @param string $apiKey
      */
     public function setApiKey($apiKey)
     {
@@ -53,7 +52,7 @@ class EngineConfiguration implements ConnectorEngineConfigurationInterface
     }
 
     /**
-     * @param $apiSecretKey
+     * @param string $apiSecretKey
      */
     public function setApiSecretKey($apiSecretKey)
     {
@@ -77,7 +76,7 @@ class EngineConfiguration implements ConnectorEngineConfigurationInterface
     }
 
     /**
-     * @param $accessToken
+     * @param string $accessToken
      */
     public function setAccessToken($accessToken)
     {
@@ -93,7 +92,7 @@ class EngineConfiguration implements ConnectorEngineConfigurationInterface
     }
 
     /**
-     * @param $accessTokenSecret
+     * @param string $accessTokenSecret
      */
     public function setAccessTokenSecret($accessTokenSecret)
     {
@@ -107,5 +106,4 @@ class EngineConfiguration implements ConnectorEngineConfigurationInterface
     {
         return $this->accessTokenSecret;
     }
-
 }

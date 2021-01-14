@@ -2,8 +2,8 @@
 
 namespace SocialData\Connector\Twitter\Model;
 
-use SocialDataBundle\Connector\ConnectorFeedConfigurationInterface;
 use SocialData\Connector\Twitter\Form\Admin\Type\TwitterFeedType;
+use SocialDataBundle\Connector\ConnectorFeedConfigurationInterface;
 
 class FeedConfiguration implements ConnectorFeedConfigurationInterface
 {
@@ -68,30 +68,34 @@ class FeedConfiguration implements ConnectorFeedConfigurationInterface
     }
 
     /**
-     * @param $ignoreReplies
+     * @param bool $ignoreReplies
      */
-    public function setIgnoreReplies($ignoreReplies) {
+    public function setIgnoreReplies($ignoreReplies)
+    {
         $this->ignoreReplies = $ignoreReplies;
     }
 
     /**
      * @return bool
      */
-    public function getIgnoreReplies() {
+    public function getIgnoreReplies()
+    {
         return $this->ignoreReplies;
     }
 
     /**
-     * @param $ignoreRetweets
+     * @param bool $ignoreRetweets
      */
-    public function setIgnoreRetweets($ignoreRetweets) {
+    public function setIgnoreRetweets($ignoreRetweets)
+    {
         $this->ignoreRetweets = $ignoreRetweets;
     }
 
     /**
      * @return bool
      */
-    public function getIgnoreRetweets() {
+    public function getIgnoreRetweets()
+    {
         return $this->ignoreRetweets;
     }
 }
