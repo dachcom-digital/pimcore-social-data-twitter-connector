@@ -23,9 +23,9 @@ SocialData.Feed.Twitter = Class.create(SocialData.Feed.AbstractFeed, {
         fields.push(
             {
                 xtype: 'textfield',
-                value: this.data !== null ? this.data['screenName'] : null,
-                fieldLabel: t('social_data.wall.feed.twitter.screen_name'),
-                name: 'screenName',
+                value: this.data !== null ? this.data['userId'] : null,
+                fieldLabel: t('social_data.wall.feed.twitter.user_id'),
+                name: 'userId',
                 labelAlign: 'left',
                 anchor: '100%',
                 flex: 1

@@ -2,23 +2,23 @@
 
 namespace SocialData\Connector\Twitter\Client;
 
+use Abraham\TwitterOAuth\TwitterOAuth;
 use SocialData\Connector\Twitter\Model\EngineConfiguration;
-use TwitterAPIExchange;
 
 class TwitterClient
 {
-    /**
-     * @param EngineConfiguration $configuration
-     *
-     * @return TwitterAPIExchange
-     */
-    public function getClient(EngineConfiguration $configuration)
+    public function getClient(EngineConfiguration $configuration): TwitterOAuth
     {
-        return new TwitterAPIExchange([
-            'consumer_key'              => $configuration->getApiKey(),
-            'consumer_secret'           => $configuration->getApiSecretKey(),
-            'oauth_access_token'        => $configuration->getAccessToken(),
-            'oauth_access_token_secret' => $configuration->getAccessTokenSecret()
-        ]);
+        $connection = new TwitterOAuth(
+            $configuration->getApiKey(),
+            $configuration->getApiSecretKey(),
+            $configuration->getAccessToken(),
+            $configuration->getAccessTokenSecret()
+        );
+
+        $connection->setApiVersion('2');
+        $connection->setDecodeJsonAsArray(true);
+
+        return $connection;
     }
 }
