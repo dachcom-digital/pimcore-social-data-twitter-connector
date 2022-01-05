@@ -16,30 +16,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SocialPostBuilder implements SocialPostBuilderInterface
 {
-    /**
-     * @var TwitterClient
-     */
-    protected $twitterClient;
+    protected TwitterClient $twitterClient;
 
-    /**
-     * @param TwitterClient $twitterClient
-     */
     public function __construct(TwitterClient $twitterClient)
     {
         $this->twitterClient = $twitterClient;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureFetch(BuildConfig $buildConfig, OptionsResolver $resolver): void
     {
         // nothing to configure so far.
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function fetch(FetchData $data): void
     {
         $options = $data->getOptions();
@@ -56,50 +44,70 @@ class SocialPostBuilder implements SocialPostBuilderInterface
             return;
         }
 
+        if (empty($feedConfiguration->getUserId())) {
+            throw new BuildException('no valid user id given.');
+        }
+
         $client = $this->twitterClient->getClient($engineConfiguration);
-        $url = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
+        $endpoint = sprintf('users/%s/tweets', $feedConfiguration->getUserId());
 
-        if (empty($feedConfiguration->getScreenName())) {
-            throw new BuildException('no valid screen name given.');
+        $excludes = [];
+        if ($feedConfiguration->getIgnoreRetweets() === true) {
+            $excludes[] = 'retweets';
         }
+
+        if ($feedConfiguration->getIgnoreReplies() === true) {
+            $excludes[] = 'replies';
+        }
+
+        $count = empty($feedConfiguration->getCount()) ? 50 : $feedConfiguration->getCount();
+        $count = $count < 5 ? 5 : $count;
 
         try {
-            $count = empty($feedConfiguration->getCount()) ? 50 : $feedConfiguration->getCount();
-            $getFields = sprintf('screen_name=%s&count=%d', $feedConfiguration->getScreenName(), $count);
-            $requestMethod = 'GET';
-
-            $userTimeline = $client
-                ->setGetfield($getFields)
-                ->buildOauth($url, $requestMethod)
-                ->performRequest();
+            $userTimelineItems = $client->get(
+                $endpoint,
+                [
+                    'max_results'  => $count,
+                    'exclude'      => implode(',', $excludes),
+                    'tweet.fields' => 'created_at,attachments',
+                    'media.fields' => 'url,preview_image_url',
+                    'expansions'   => 'author_id,in_reply_to_user_id,attachments.media_keys',
+                ]
+            );
         } catch (\Throwable $e) {
-            throw new BuildException(sprintf('twitter api error: %s [endpoint: %s]', $e->getMessage(), $url));
+            throw new BuildException(sprintf('twitter api error: %s [endpoint: %s]', $e->getMessage(), $endpoint));
         }
 
-        try {
-            $items = json_decode($userTimeline, true);
-        } catch (\Throwable $e) {
-            throw new BuildException(sprintf('twitter decode response error: %s [endpoint: %s]', $e->getMessage(), $url));
+        if (isset($userTimelineItems['errors'])) {
+
+            $errorMessage = implode(', ', array_map(static function ($error) {
+                return $error['message'] ?? '';
+            }, $userTimelineItems['errors']));
+
+            throw new BuildException(sprintf('twitter api error: %s [endpoint: %s]', $errorMessage, $endpoint));
         }
 
-        if (count($items) === 0) {
+        if (!isset($userTimelineItems['data']) || !is_array($userTimelineItems['data'])) {
             return;
+        }
+
+        if (count($userTimelineItems['data']) === 0) {
+            return;
+        }
+
+        $items = [];
+        foreach ($userTimelineItems['data'] as $dataItem) {
+            $items[] = $this->transformApiItem($dataItem, $userTimelineItems);
         }
 
         $data->setFetchedEntities($items);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureFilter(BuildConfig $buildConfig, OptionsResolver $resolver): void
     {
         // nothing to configure so far.
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function filter(FilterData $data): void
     {
         $options = $data->getOptions();
@@ -118,33 +126,15 @@ class SocialPostBuilder implements SocialPostBuilderInterface
 
         // @todo: check if feed has some filter (filter for hashtag for example)
 
-        if ($feedConfiguration->getIgnoreReplies() === true) {
-            if (isset($element['in_reply_to_status_id']) && $element['in_reply_to_status_id'] !== null) {
-                return;
-            }
-        }
-
-        if ($feedConfiguration->getIgnoreRetweets() === true) {
-            if (isset($element['retweeted']) && $element['retweeted'] === true) {
-                return;
-            }
-        }
-
         $data->setFilteredElement($element);
         $data->setFilteredId($element['id']);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureTransform(BuildConfig $buildConfig, OptionsResolver $resolver): void
     {
         // nothing to configure so far.
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function transform(TransformData $data): void
     {
         $options = $data->getOptions();
@@ -169,15 +159,33 @@ class SocialPostBuilder implements SocialPostBuilderInterface
         }
 
         $mediaElement = null;
-        if (isset($element['entities']) && isset($element['entities']['media']) && is_array($element['entities']['media']) && count($element['entities']['media']) > 0) {
-            $mediaElement = $element['entities']['media'][0]['media_url'];
+        if (count($element['attachment_includes']) > 0) {
+            $mediaElement = $element['attachment_includes'][0]['url'];
         }
 
         $socialPost->setSocialCreationDate($creationTime);
         $socialPost->setContent($element['text']);
-        $socialPost->setUrl(sprintf('https://twitter.com/%s/status/%s', $feedConfiguration->getScreenName(), $element['id']));
+        $socialPost->setUrl(sprintf('https://twitter.com/%s/status/%s', $feedConfiguration->getUserId(), $element['id']));
         $socialPost->setPosterUrl($mediaElement);
 
         $data->setTransformedElement($socialPost);
+    }
+
+    protected function transformApiItem(array $dataItem, array $apiData)
+    {
+        $attachmentData = [];
+        $hasAttachmentIncludes = isset($apiData['includes']['media']) && is_array($apiData['includes']['media']);
+
+        if ($hasAttachmentIncludes === true && isset($dataItem['attachments']['media_keys']) && is_array($dataItem['attachments']['media_keys'])) {
+            foreach ($dataItem['attachments']['media_keys'] as $mediaKey) {
+                $attachmentData = array_values(array_filter($apiData['includes']['media'], static function ($mediaInclude) use ($mediaKey) {
+                    return $mediaInclude['media_key'] === $mediaKey && $mediaInclude['type'] === 'photo';
+                }));
+            }
+        }
+
+        $dataItem['attachment_includes'] = $attachmentData;
+
+        return $dataItem;
     }
 }

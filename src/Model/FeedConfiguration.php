@@ -7,94 +7,52 @@ use SocialDataBundle\Connector\ConnectorFeedConfigurationInterface;
 
 class FeedConfiguration implements ConnectorFeedConfigurationInterface
 {
-    /**
-     * @var string|null
-     */
-    protected $screenName;
+    protected ?string $userId = null;
+    protected ?int $count = null;
+    protected bool $ignoreReplies = true;
+    protected bool $ignoreRetweets = true;
 
-    /**
-     * @var int|null
-     */
-    protected $count;
-
-    /**
-     * @var bool
-     */
-    protected $ignoreReplies = true;
-
-    /**
-     * @var bool
-     */
-    protected $ignoreRetweets = true;
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function getFormClass()
+    public static function getFormClass(): string
     {
         return TwitterFeedType::class;
     }
 
-    /**
-     * @param string|null $screenName
-     */
-    public function setScreenName(?string $screenName)
+    public function setUserId(?string $userId): void
     {
-        $this->screenName = $screenName;
+        $this->userId = $userId;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getScreenName()
+    public function getUserId(): ?string
     {
-        return $this->screenName;
+        return $this->userId;
     }
 
-    /**
-     * @param int|null $count
-     */
-    public function setCount(?int $count)
+    public function setCount(?int $count): void
     {
         $this->count = $count;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getCount()
+    public function getCount(): ?int
     {
         return $this->count;
     }
 
-    /**
-     * @param bool $ignoreReplies
-     */
-    public function setIgnoreReplies($ignoreReplies)
+    public function setIgnoreReplies(bool $ignoreReplies): void
     {
         $this->ignoreReplies = $ignoreReplies;
     }
 
-    /**
-     * @return bool
-     */
-    public function getIgnoreReplies()
+    public function getIgnoreReplies(): bool
     {
         return $this->ignoreReplies;
     }
 
-    /**
-     * @param bool $ignoreRetweets
-     */
-    public function setIgnoreRetweets($ignoreRetweets)
+    public function setIgnoreRetweets(bool $ignoreRetweets): void
     {
         $this->ignoreRetweets = $ignoreRetweets;
     }
 
-    /**
-     * @return bool
-     */
-    public function getIgnoreRetweets()
+    public function getIgnoreRetweets(): bool
     {
         return $this->ignoreRetweets;
     }

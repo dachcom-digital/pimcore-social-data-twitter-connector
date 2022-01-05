@@ -8,101 +8,66 @@ use SocialDataBundle\Connector\ConnectorEngineConfigurationInterface;
 class EngineConfiguration implements ConnectorEngineConfigurationInterface
 {
     /**
-     * @var string*
-     *
      * @internal
      */
-    protected $apiKey;
+    protected ?string $apiKey = null;
 
     /**
-     * @var string
-     *
      * @internal
      */
-    protected $apiSecretKey;
+    protected ?string $apiSecretKey = null;
 
     /**
-     * @var string
-     *
      * @internal
      */
-    protected $accessToken;
+    protected ?string $accessToken = null;
 
     /**
-     * @var string
-     *
      * @internal
      */
-    protected $accessTokenSecret;
+    protected ?string $accessTokenSecret = null;
 
-    /**
-     * @param string $apiKey
-     */
-    public function setApiKey($apiKey)
+    public function setApiKey(string $apiKey): void
     {
         $this->apiKey = $apiKey;
     }
 
-    /**
-     * @return string
-     */
-    public function getApiKey()
+    public function getApiKey(): ?string
     {
         return $this->apiKey;
     }
 
-    /**
-     * @param string $apiSecretKey
-     */
-    public function setApiSecretKey($apiSecretKey)
+    public function setApiSecretKey(string $apiSecretKey)
     {
         $this->apiSecretKey = $apiSecretKey;
     }
 
-    /**
-     * @return string
-     */
-    public function getApiSecretKey()
+    public function getApiSecretKey(): ?string
     {
         return $this->apiSecretKey;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function getFormClass()
+    public static function getFormClass(): string
     {
         return TwitterEngineType::class;
     }
 
-    /**
-     * @param string $accessToken
-     */
-    public function setAccessToken($accessToken)
+    public function setAccessToken(string $accessToken)
     {
         $this->accessToken = $accessToken;
     }
 
-    /**
-     * @return string
-     */
-    public function getAccessToken()
+    public function getAccessToken(): ?string
     {
         return $this->accessToken;
     }
 
-    /**
-     * @param string $accessTokenSecret
-     */
-    public function setAccessTokenSecret($accessTokenSecret)
+    public function setAccessTokenSecret(string $accessTokenSecret)
     {
         $this->accessTokenSecret = $accessTokenSecret;
     }
 
-    /**
-     * @return string
-     */
-    public function getAccessTokenSecret()
+    public function getAccessTokenSecret(): ?string
     {
         return $this->accessTokenSecret;
     }

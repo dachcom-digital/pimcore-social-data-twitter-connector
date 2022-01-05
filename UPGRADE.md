@@ -1,9 +1,9 @@
 # Upgrade Notes
-![upgrade](https://user-images.githubusercontent.com/700119/31535145-3c01a264-affa-11e7-8d86-f04c33571f65.png)  
 
-***
+## Migrating from Version 1.x to Version 2.0.0
 
-After every update you should check the pimcore extension manager. 
-Just click the "update" button or execute the migration command to finish the bundle update.
-
-***
+### Global Changes
+- PHP8 return type declarations added: you may have to adjust your extensions accordingly
+- ⚠️ Switched to twitter API v2 which means you need to TBD
+  - You need to create a project in twitter backoffice instead of an standalone app (https://developer.twitter.com/en/portal/projects-and-apps)
+  - Changed feed configuration: You need to set users ID instead of screen name in feed configuration

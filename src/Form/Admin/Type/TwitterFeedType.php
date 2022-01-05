@@ -12,21 +12,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TwitterFeedType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('screenName', TextType::class);
+        $builder->add('userId', TextType::class);
         $builder->add('count', IntegerType::class);
         $builder->add('ignoreReplies', CheckboxType::class);
         $builder->add('ignoreRetweets', CheckboxType::class);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'csrf_protection' => false,
