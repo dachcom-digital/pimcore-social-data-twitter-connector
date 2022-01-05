@@ -55,8 +55,9 @@ social_data:
     available_connectors:
         -   connector_name: twitter
 ```
+
 ## Twitter Backoffice
-Some hints to set up your twitter app:
+Some hints to set up your Twitter app:
 - Create Project via https://developer.twitter.com
 - Generate Keys in `Keys and tokens` in section `Access Token and Secret`
 
@@ -66,11 +67,9 @@ Some hints to set up your twitter app:
 Now head back to the backend (`System` => `Social Data` => `Connector Configuration`) and checkout the twitter tab.
 - Click on `Install`
 - Click on `Enable`
-- Before you hit the `Connect` button, you need to fill you out the Connector Configuration. After that, click "Save".
   
 ## Connection
-Twitter is auto connected with a valid token and token secret.
-You can generate it on your [twitter developer account](https://developer.twitter.com/).
+Twitter is auto connected after you have filled out the connector configuration fields.
 
 ## Feed Configuration
 
