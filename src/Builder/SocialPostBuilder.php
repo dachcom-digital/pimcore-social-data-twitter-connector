@@ -171,7 +171,7 @@ class SocialPostBuilder implements SocialPostBuilderInterface
         $data->setTransformedElement($socialPost);
     }
 
-    protected function transformApiItem(array $dataItem, array $apiData)
+    protected function transformApiItem(array $dataItem, array $apiData): array
     {
         $attachmentData = [];
         $hasAttachmentIncludes = isset($apiData['includes']['media']) && is_array($apiData['includes']['media']);
