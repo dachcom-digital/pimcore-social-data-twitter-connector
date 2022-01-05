@@ -76,7 +76,7 @@ You can generate it on your [twitter developer account](https://developer.twitte
 
 | Name | Description
 |------|----------------------|
-| `Screen Name` | Defines which Screen entries should be imported |
+| `User Id` | Defines which user entries should be imported |
 | `Count` | Define a limit to restrict the amount of social posts to import |
 
 ## Copyright and license
