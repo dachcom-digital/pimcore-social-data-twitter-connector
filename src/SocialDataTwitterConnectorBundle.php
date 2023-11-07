@@ -2,32 +2,22 @@
 
 namespace SocialData\Connector\Twitter;
 
-use Pimcore\Extension\Bundle\AbstractPimcoreBundle;
 use Pimcore\Extension\Bundle\Traits\PackageVersionTrait;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class SocialDataTwitterConnectorBundle extends AbstractPimcoreBundle
+class SocialDataTwitterConnectorBundle extends Bundle
 {
     use PackageVersionTrait;
 
     public const PACKAGE_NAME = 'dachcom-digital/social-data-twitter-connector';
 
+    public function getPath(): string
+    {
+        return \dirname(__DIR__);
+    }
+
     protected function getComposerPackageName(): string
     {
         return self::PACKAGE_NAME;
-    }
-
-    public function getCssPaths(): array
-    {
-        return [
-            '/bundles/socialdatatwitterconnector/css/admin.css'
-        ];
-    }
-
-    public function getJsPaths(): array
-    {
-        return [
-            '/bundles/socialdatatwitterconnector/js/connector/twitter-connector.js',
-            '/bundles/socialdatatwitterconnector/js/feed/twitter-feed.js',
-        ];
     }
 }

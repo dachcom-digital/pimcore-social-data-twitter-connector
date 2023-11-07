@@ -12,36 +12,27 @@ This Connector allows you to fetch social posts from Twitter (API v2).
 ### Release Plan
 | Release | Supported Pimcore Versions | Supported Symfony Versions | Release Date | Maintained     | Branch                                                                                   |
 |---------|----------------------------|----------------------------|--------------|----------------|------------------------------------------------------------------------------------------|
-| **2.x** | `10.1` - `10.6`            | `5.4`                      | 05.01.2022   | Feature Branch | master                                                                                   |
+| **3.x** | `11.0`                     | `6.2`                      | --           | Feature Branch | master                                                                                   |
+| **2.x** | `10.1` - `10.6`            | `5.4`                      | 05.01.2022   | Unsupported    | [2.x](https://github.com/dachcom-digital/pimcore-social-data-twitter-connector/tree/2.x) |
 | **1.x** | `6.0` - `6.9`              | `3.4`, `^4.4`              | 22.10.2020   | Unsupported    | [1.x](https://github.com/dachcom-digital/pimcore-social-data-twitter-connector/tree/1.x) |
 
 ## Installation
 
-### I. Add Dependencies
 ```json
 "require" : {
-    "dachcom-digital/social-data" : "~2.0.0",
-    "dachcom-digital/social-data-twitter-connector" : "~1.0.0"
+    "dachcom-digital/social-data" : "~3.0.0",
+    "dachcom-digital/social-data-twitter-connector" : "~3.0.0"
 }
 ```
 
-### II. Register Connector Bundle
+Add Bundle to `bundles.php`:
 ```php
-// src/Kernel.php
-namespace App;
-
-use Pimcore\HttpKernel\BundleCollection\BundleCollection;
-
-class Kernel extends \Pimcore\Kernel
-{
-    public function registerBundlesToCollection(BundleCollection $collection)
-    {
-        $collection->addBundle(new SocialData\Connector\Twitter\SocialDataTwitterConnectorBundle());
-    }
-}
+return [
+    SocialData\Connector\Twitter\SocialDataTwitterConnectorBundle::class => ['all' => true],
+];
 ```
 
-### III. Install Assets
+### Install Assets
 ```bash
 bin/console assets:install public --relative --symlink
 ```
@@ -73,10 +64,10 @@ Twitter is auto connected after you have filled out the connector configuration 
 
 ## Feed Configuration
 
-| Name | Description
-|------|----------------------|
-| `User Id` | Defines which user entries should be imported |
-| `Count` | Define a limit to restrict the amount of social posts to import |
+| Name      | Description                                                     |
+|-----------|-----------------------------------------------------------------|
+| `User Id` | Defines which user entries should be imported                   |
+| `Count`   | Define a limit to restrict the amount of social posts to import |
 
 ## Copyright and license
 Copyright: [DACHCOM.DIGITAL](http://dachcom-digital.ch)  

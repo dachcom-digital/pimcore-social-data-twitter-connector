@@ -32,3 +32,9 @@ services:
     SocialData\Connector\Twitter\Form\Admin\Type\TwitterFeedType:
         tags:
             - { name: form.type }
+
+    ## Events
+
+    SocialData\Connector\Twitter\EventListener\Admin\AssetListener:
+        tags:
+            - { name: kernel.event_subscriber }
