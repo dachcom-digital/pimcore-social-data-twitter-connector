@@ -1,6 +1,6 @@
 # Pimcore Social Data - Twitter Connector
-
 [![Software License](https://img.shields.io/badge/license-GPLv3-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Software License](https://img.shields.io/badge/license-DCL-white.svg?style=flat-square&color=%23ff5c5c)](LICENSE.md)
 [![Latest Release](https://img.shields.io/packagist/v/dachcom-digital/social-data-twitter-connector.svg?style=flat-square)](https://packagist.org/packages/dachcom-digital/social-data-twitter-connector)
 [![Tests](https://img.shields.io/github/actions/workflow/status/dachcom-digital/pimcore-social-data-twitter-connector/.github/workflows/codeception.yml?branch=master&style=flat-square&logo=github&label=codeception)](https://github.com/dachcom-digital/pimcore-social-data-twitter-connector/actions?query=workflow%3ACodeception+branch%3Amaster)
 [![PhpStan](https://img.shields.io/github/actions/workflow/status/dachcom-digital/pimcore-social-data-twitter-connector/.github/workflows/php-stan.yml?branch=master&style=flat-square&logo=github&label=phpstan%20level%204)](https://github.com/dachcom-digital/pimcore-social-data-twitter-connector/actions?query=workflow%3A"PHP+Stan"+branch%3Amaster)
@@ -20,8 +20,8 @@ This Connector allows you to fetch social posts from Twitter (API v2).
 
 ```json
 "require" : {
-    "dachcom-digital/social-data" : "~3.0.0",
-    "dachcom-digital/social-data-twitter-connector" : "~3.0.0"
+    "dachcom-digital/social-data" : "~3.1.0",
+    "dachcom-digital/social-data-twitter-connector" : "~3.1.0"
 }
 ```
 
@@ -69,12 +69,14 @@ Twitter is auto connected after you have filled out the connector configuration 
 | `User Id` | Defines which user entries should be imported                   |
 | `Count`   | Define a limit to restrict the amount of social posts to import |
 
+***
+
+## Upgrade Info
+Before updating, please [check our upgrade notes!](UPGRADE.md)
+
 ## License
 **DACHCOM.DIGITAL AG**, Löwenhofstrasse 15, 9424 Rheineck, Schweiz  
 [dachcom.com](https://www.dachcom.com), dcdi@dachcom.ch  
 Copyright © 2024 DACHCOM.DIGITAL. All rights reserved.  
 
 For licensing details please visit [LICENSE.md](LICENSE.md)  
-
-## Upgrade Info
-Before updating, please [check our upgrade notes!](UPGRADE.md)
