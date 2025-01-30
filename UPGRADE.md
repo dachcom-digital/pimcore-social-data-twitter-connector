@@ -1,5 +1,8 @@
 # Upgrade Notes
 
+## 3.2.0
+- [IMPROVEMENT] Update to latest `"abraham/twitteroauth": "^7.0"`
+
 ## 3.1.0
 - [LICENSE] Dual-License with GPL and Dachcom Commercial License (DCL) added
 
