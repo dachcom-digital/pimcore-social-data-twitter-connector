@@ -40,7 +40,7 @@
     },
     "require": {
         "dachcom-digital/social-data": "^3.0",
-        "abraham/twitteroauth": "^3.2"
+        "abraham/twitteroauth": "^7.0"
     },
     "require-dev": {
         "codeception/codeception": "^5.0",
